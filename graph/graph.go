@@ -2,7 +2,7 @@ package graph
 
 import "github.com/emirpasic/gods/v2/sets/hashset"
 
-func NewGraphFromChan[T PointType](edgeIn chan Edge[T]) *Graph[T] {
+func NewGraphFromChan[T PointType](edgeIn chan *Edge[T]) *Graph[T] {
 	graph := make(map[T]*Node[T])
 	for edge := range edgeIn {
 		if _, ok := graph[edge.From]; !ok {

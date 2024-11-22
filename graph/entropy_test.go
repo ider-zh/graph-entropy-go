@@ -35,9 +35,9 @@ func TestGetDegreeEntropyChan(t *testing.T) {
 		{0, 1}, {1, 2}, {2, 1}, {3, 4},
 	}
 
-	edgeChan := make(chan Edge[int], 20)
+	edgeChan := make(chan *Edge[int], 20)
 	for _, v := range edges {
-		edgeChan <- v
+		edgeChan <- &v
 	}
 	close(edgeChan)
 	graph := NewGraphFromChan(edgeChan)
@@ -85,9 +85,9 @@ func TestGetStructEntropyChan(t *testing.T) {
 		{0, 1}, {1, 2}, {2, 1}, {3, 4},
 	}
 
-	edgeChan := make(chan Edge[int], 20)
+	edgeChan := make(chan *Edge[int], 20)
 	for _, v := range edges {
-		edgeChan <- v
+		edgeChan <- &v
 	}
 	close(edgeChan)
 	graph := NewGraphFromChan(edgeChan)
