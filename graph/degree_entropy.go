@@ -30,20 +30,15 @@ func (c *Graph[T]) DegreeEntropy() *DegreeEntropyStats {
 	var undirected_degreeMap = make(map[int]int)
 
 	for _, node := range c.Nodes {
-		InIDsCount := node.LinksIn.Size()
-		if InIDsCount > 0 {
-			in_degreeMap[InIDsCount] += 1
-		}
+		InIDsCount := len(node.LinksIn)
+		in_degreeMap[InIDsCount] += 1
 
-		OutIDsCount := node.LinksOut.Size()
-		if OutIDsCount > 0 {
-			out_degreeMap[OutIDsCount] += 1
-		}
+		OutIDsCount := len(node.LinksOut)
+		out_degreeMap[OutIDsCount] += 1
 
-		undirected_degree_count := node.LinksIn.Union(node.LinksOut).Size()
-		if undirected_degree_count > 0 {
-			undirected_degreeMap[undirected_degree_count] += 1
-		}
+		undirected_degree_count := len(node.LinksIn) + len(node.LinksOut)
+		undirected_degreeMap[undirected_degree_count] += 1
+
 	}
 	in_degree := getDegreeFromMap(in_degreeMap)
 	out_degree := getDegreeFromMap(out_degreeMap)

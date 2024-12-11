@@ -31,17 +31,17 @@ func (c *Graph[T]) StructEntropy() *StructEntropyStats {
 	var undirected_degree []int
 
 	for _, node := range c.Nodes {
-		InIDsCount := node.LinksIn.Size()
+		InIDsCount := len(node.LinksIn)
 		if InIDsCount > 0 {
 			in_degree = append(in_degree, InIDsCount)
 		}
 
-		OutIDsCount := node.LinksOut.Size()
+		OutIDsCount := len(node.LinksOut)
 		if OutIDsCount > 0 {
 			out_degree = append(out_degree, OutIDsCount)
 		}
 
-		undirected_degree_count := node.LinksIn.Union(node.LinksOut).Size()
+		undirected_degree_count := len(node.LinksIn) + len(node.LinksOut)
 		if undirected_degree_count > 0 {
 			undirected_degree = append(undirected_degree, undirected_degree_count)
 		}
@@ -51,6 +51,12 @@ func (c *Graph[T]) StructEntropy() *StructEntropyStats {
 	out_E := calStructEntropy(out_degree)
 	undirected_E := calStructEntropy(undirected_degree)
 
+	in_E_min := math.Log2(4*float64(len(in_degree)-1)) / 2
+	in_E_max := math.Log2(float64(len(in_degree)))
+
+	out_E_min := math.Log2(4*float64(len(out_degree)-1)) / 2
+	out_E_max := math.Log2(float64(len(out_degree)))
+
 	undirected_E_min := math.Log2(4*float64(len(undirected_degree)-1)) / 2
 	undirected_E_max := math.Log2(float64(len(undirected_degree)))
 
@@ -58,8 +64,8 @@ func (c *Graph[T]) StructEntropy() *StructEntropyStats {
 		EntropyIN:           in_E,
 		EntropyOut:          out_E,
 		Entropy:             undirected_E,
-		NormalizeEntropyIn:  in_E / math.Log2(float64(len(undirected_degree))),
-		NormalizeEntropyOut: out_E / math.Log2(float64(len(undirected_degree))),
+		NormalizeEntropyIn:  (in_E - in_E_min) / (in_E_max - in_E_min),
+		NormalizeEntropyOut: (out_E - out_E_min) / (out_E_max - out_E_min),
 		NormalizeEntropy:    (undirected_E - undirected_E_min) / (undirected_E_max - undirected_E_min),
 	}
 
