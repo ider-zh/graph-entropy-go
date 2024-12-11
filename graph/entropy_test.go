@@ -59,6 +59,9 @@ func TestGetDegreeEntropyChan(t *testing.T) {
 	if !IsEqual(ret.Entropy, 1.548794940695398) {
 		t.Error("inE error")
 	}
+	if ret.NodeCount != 8 {
+		t.Error("inE error", ret.NodeCount)
+	}
 }
 
 func TestGetStructEntropy(t *testing.T) {
@@ -112,5 +115,15 @@ func TestGetStructEntropyChan(t *testing.T) {
 	}
 	if !IsEqual(obj.NormalizeEntropy, 0.586523068142618) {
 		t.Error("NormalizeEntropy error", obj.NormalizeEntropy)
+	}
+
+	if obj.NodeCount != 8 {
+		t.Error("NodeCount error", obj.NodeCount)
+	}
+	if obj.NodeInCount != 4 {
+		t.Error("NodeInCount error", obj.NodeInCount)
+	}
+	if obj.NodeOutCount != 7 {
+		t.Error("NodeOutCount error", obj.NodeOutCount)
 	}
 }

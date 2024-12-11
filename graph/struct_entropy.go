@@ -67,6 +67,9 @@ func (c *Graph[T]) StructEntropy() *StructEntropyStats {
 		NormalizeEntropyIn:  (in_E - in_E_min) / (in_E_max - in_E_min),
 		NormalizeEntropyOut: (out_E - out_E_min) / (out_E_max - out_E_min),
 		NormalizeEntropy:    (undirected_E - undirected_E_min) / (undirected_E_max - undirected_E_min),
+		NodeInCount:         len(in_degree),
+		NodeOutCount:        len(out_degree),
+		NodeCount:           len(undirected_degree),
 	}
 
 }

@@ -52,5 +52,6 @@ func (c *Graph[T]) DegreeEntropy() *DegreeEntropyStats {
 		EntropyIN:  in_E,
 		EntropyOut: out_E,
 		Entropy:    undirected_E,
+		NodeCount:  len(c.Nodes),
 	}
 }

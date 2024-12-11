@@ -26,10 +26,14 @@ type StructEntropyStats struct {
 	NormalizeEntropyIn  float64
 	NormalizeEntropyOut float64
 	NormalizeEntropy    float64
+	NodeInCount         int
+	NodeOutCount        int
+	NodeCount           int
 }
 
 type DegreeEntropyStats struct {
 	EntropyIN  float64
 	EntropyOut float64
 	Entropy    float64
+	NodeCount  int
 }
